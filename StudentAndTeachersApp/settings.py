@@ -80,21 +80,13 @@ WSGI_APPLICATION = 'StudentAndTeachersApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'daniel',
+        'PASSWORD': 'qwerty',
+        'NAME': 'studentsandteachersdb',
+        'HOST': 'localhost',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'studentsandteachersdb',
-#         'USER': 'danny',
-#         'PASSWORD': 'win123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
 
 # Password validation
