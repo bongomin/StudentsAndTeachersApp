@@ -75,10 +75,10 @@ function Table() {
                         <th className="p-4">Actions</th>
                     </tr>
                 </thead>
-                {students && students.map(student => (
+                {students && students.map((student, index) => (
                     <tbody key={student.id} className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td className="w-4 p-4">#</td>
+                            <td className="w-4 p-4">{index+1}</td>
                             <td className="p-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                                 <div className="text-base font-semibold text-gray-900 dark:text-white">
                                     {student.name}
