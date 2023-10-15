@@ -59,29 +59,31 @@ function TopPanel() {
     return (
         <div className="flex justify-between items-center p-2 my-6 mx-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 xl:p-4">
             <div className="flex items-center">
-                <div className="mr-2">{path}</div>
+                <div className="mr-2 font-bold text-xl">{path}</div>
             </div>
             <div className="flex items-center">
-                <div className="mr-2" onClick={openModal} style={{ cursor: 'pointer' }}>
-                    Create {path}
-                </div>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-blue-500 cursor-pointer"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    onClick={openModal}
-                    style={{ cursor: 'pointer' }}
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
+            <button className="flex items-center bg-blue-500 hover:bg-blue-700 text-white p-2 rounded" onClick={openModal}>
+                    <div className="mr-2" style={{ cursor: 'pointer' }}>
+                        Create {path}
+                    </div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6 text-white cursor-pointer"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                </button>
+
             </div>
 
             {isModalOpen && path === 'students' && (
                 <StudentContext.Provider value={{ students: studentList }} >
                     <Modal closeModal={closeModal} onSubmit={createStudent}>
-                    <div className="text-2xl font-semibold mb-4">Create Student</div>
+                        <div className="text-2xl font-semibold mb-4">Create Student</div>
                         <div className="flex flex-col mb-4">
                             <label htmlFor="name" className="mb-2">
                                 Name:
