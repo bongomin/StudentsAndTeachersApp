@@ -3,6 +3,7 @@ import React, {
     useState
 } from 'react'
 import { fetchTeachers } from '../../service/teacherService';
+import TeachersTable from '../../components/TeachersTable';
 
 const Teachers = () => {
     const [teachers, setTeachers] = useState();
@@ -14,16 +15,8 @@ const Teachers = () => {
     useEffect(() => { fetch() }, []);
 
     return (
-        <div>
-            test
-            {
-                teachers && teachers?.map((teacher) => (
-                    <div key={teacher.id}>
-                        <p>{teacher.name}</p>
-                    </div>
-                ))
-            }
-        </div>
+        <><TeachersTable teachers={teachers} />
+        </>
     )
 };
 
