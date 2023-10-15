@@ -1,16 +1,31 @@
-import React, { useContext, useState } from 'react';
-import { StudentContext } from '../context/StudentContext';
+import React, {
+    useState
+} from 'react';
 import Modal from './Modal';
-import { deleteStudent } from '../service/studentService';
+import { deleteStudent, editStudent } from '../service/studentService';
+import { useDispatch, useSelector } from 'react-redux';
+import { studentToUpdate } from '../store/studentSlice';
 
+const initialValues = {
+    name: '',
+    surname: ''
+}
 
 function Table() {
     const [isModalVisible, setModalVisible] = useState(false);
-    const { students } = useContext(StudentContext);
+    const students = useSelector(state => state.students.students);
+    const dispatch = useDispatch();
+    const [values, setValues] = useState(initialValues);
+
     const [modal, setModal] = useState('');
     const [currentStudent, setCurrentStudent] = useState();
 
-    const handleUpdateClick = () => {
+    const handleUpdateClick = (student) => {
+        setValues({
+            name: student.name,
+            surname: student.surname
+        })
+        dispatch(studentToUpdate(student))
         setModalVisible(true);
         setModal('create')
     };
@@ -33,6 +48,19 @@ function Table() {
     const handleDelete = async () => {
         const data = await deleteStudent(currentStudent.id);
         console.log(data, "confirm deletion")
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+
+    const updateStudentData = async () => {
+        const response = await editStudent(values);
+        console.log(response)
     }
 
     return (
@@ -67,7 +95,7 @@ function Table() {
                             <td className="p-4 space-x-2 whitespace-nowrap text-center">
                                 <button
                                     type="button"
-                                    onClick={handleUpdateClick}
+                                    onClick={() => handleUpdateClick(student)}
                                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
                                 >
                                     <svg
@@ -118,13 +146,17 @@ function Table() {
                             <label htmlFor="name" className="mb-2">
                                 Name:
                             </label>
-                            <input type="text" id="name" className="border p-2" placeholder="Enter name" />
+                            <input
+                                onChange={(e) => handleChange(e)}
+                                name='name' value={values.name} type="text" id="name" className="border p-2" placeholder="Enter name" />
                         </div>
                         <div className="flex flex-col mb-4">
                             <label htmlFor="surname" className="mb-2">
                                 Surname:
                             </label>
-                            <input type="text" id="surname" className="border p-2" placeholder="Enter surname" />
+                            <input
+                                onChange={(e) => handleChange(e)}
+                                name='surname' value={values.surname} type="text" id="surname" className="border p-2" placeholder="Enter surname" />
                         </div>
                         <div className="flex justify-end">
                             <button
@@ -134,10 +166,10 @@ function Table() {
                                 Cancel
                             </button>
                             <button
-                                onClick={closeModal}
+                                onClick={updateStudentData}
                                 className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
                             >
-                                Update
+                                Update 
                             </button>
                         </div>
                     </div>
