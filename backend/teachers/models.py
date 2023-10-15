@@ -4,7 +4,8 @@ from students.models import Student
 
 
 class Teacher(ModelsBaseResource):
-    students = models.ManyToManyField(Student)
+    students = models.ManyToManyField(Student, null=True, blank=True)
+
 
     def __str__(self):
         return self.name
