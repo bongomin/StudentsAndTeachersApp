@@ -27,7 +27,7 @@ const Modal = ({ children, closeModal, onSubmit, onCreate, isConfirm = false }) 
                     {children}
                     {
                         students && (pathname.replace('/', '')) === 'teachers' &&
-                        <div className='p-2 border mb-'>
+                        <div className='p-2 border mb-2'>
                             <p>Assign Student to Teacher:</p>
                             <hr className='p-2'></hr>
                             <ul className='m-2'>
