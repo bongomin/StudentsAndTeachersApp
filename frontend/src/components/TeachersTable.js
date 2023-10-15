@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { filterStuddents } from '../utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTeachers } from '../service/teacherService';
-import { removeTeacher, teacherToUpdate } from '../store/teacherSlice';
+import { deleteTeachers, editTeachers } from '../service/teacherService';
+import { removeTeacher, teacherToUpdate, updatedTeacher } from '../store/teacherSlice';
 import { useLocation } from 'react-router-dom';
+import Modal from './Modal';
+import { toast } from 'react-toastify';
 
 function TeachersTable() {
     const { teachers } = useSelector(state => state.teachers);
@@ -15,14 +17,27 @@ function TeachersTable() {
 
     const { pathname } = useLocation();
 
+    const closeModal = () => {
+        setModalVisible(false);
+    };
+
     const [modal, setModal] = useState('');
 
     const dispatch = useDispatch();
 
-    const deleteTeacher = async (teacher) => {
-        const response = await deleteTeachers(teacher.id);
-        dispatch(removeTeacher(teacher.id))
-        console.log(response, "response data!!");
+    const deleteTeacher = (teacher) => {
+        setModalVisible(true)
+        setCurrentTeacher(teacher)
+        setModal('delete')
+    }
+
+    const handleDelete = async () => {
+        const data = await deleteTeachers(currentTeacher.id);
+        closeModal()
+        if (data.message) {
+            toast.success("Teacher sucessfully deleted")
+            dispatch(removeTeacher(currentTeacher.id))
+        }
     }
 
     const updateTeacher = async (teacher) => {
@@ -49,10 +64,24 @@ function TeachersTable() {
     };
 
     useEffect(() => {
-        if(currentTeacher.students && currentTeacher.students.length > 0){
+        if (currentTeacher.students && currentTeacher.students.length > 0) {
             setSelectedStudents(currentTeacher?.students)
         }
     }, [currentTeacher])
+
+
+    const updateTeacherData = async () => {
+        console.log(currentTeacher, "current teacher")
+        const data = {
+            id: currentTeacher.id,
+            name,
+            students: selectedStudents
+        }
+        const response = await editTeachers(data);
+        dispatch(updatedTeacher(response))
+        toast.success("Student Updated successfully")
+        closeModal()
+    }
 
     return (
         <div className="container mx-auto p-6">
@@ -150,6 +179,7 @@ function TeachersTable() {
                                 Cancel
                             </button>
                             <button
+                                onClick={updateTeacherData}
                                 className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
                             >
                                 Update
@@ -158,6 +188,14 @@ function TeachersTable() {
                     </div>
                 </div>
             )}
+
+            {
+                isModalVisible && modal === 'delete' ? (
+                    <Modal closeModal={closeModal} onSubmit={handleDelete} isConfirm={true}>
+                        <p>Confirm Delete</p>
+                    </Modal>
+                ) : null
+            }
         </div>
 
     );
