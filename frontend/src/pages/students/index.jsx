@@ -3,25 +3,24 @@ import React, {
     useState,
 } from 'react'
 import { fetchStudents } from '../../service/studentService';
-import { StudentContext } from '../../context/StudentContext';
 import Table from '../../components/Table';
+import { useDispatch } from 'react-redux';
+import { loadStudents } from '../../store/studentSlice';
 
 const Students = () => {
-    const [students, setStudents] = useState();
+    const dispatch = useDispatch();
 
     const fetch = async () => {
         const data = await fetchStudents();
-        setStudents(data.results);
+        dispatch(loadStudents(data.results))
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { fetch() }, []);
 
     return (
         <>
-            <StudentContext.Provider value={{ students, setStudents }}>
-                <Table />
-            </StudentContext.Provider>
-
+            <Table />
         </>
     )
 }
