@@ -19,7 +19,7 @@ db.sqlite3
 .DS_Store
 
 # Ignore the database configuration file
-myproject/.env
+backend/.env
 
 # Ignore logs and other generated files
 *.log
