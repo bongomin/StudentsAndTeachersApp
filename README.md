@@ -11,20 +11,28 @@ This web application manages CRUD (Create, Read, Update, Delete) operations for 
 <img width="1438" alt="teachersList" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/2528758d-7e34-4991-8639-80bde284b9a5">
 
 ### Application Home Page
-<img width="1440" alt="home page" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b1e02dd8-c970-4845-807e-881c56fa01fc">
+<img width="1440" alt="Home Page" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/0a0d6637-d8b0-464c-9851-02ff06b160bd">
+
 
 ### Frontend - Students List
-<img width="1440" alt="students" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b10baed4-332d-4c0b-a413-b3b0b8103b61">
+<img width="1438" alt="Stunets List" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/0116b898-1887-4206-ae3a-fc77e01b1417">
+
+## Create Student Form
+<img width="1436" alt="Create Students" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b29b36e2-3b32-43bd-a026-065412c6615e">
 
 ### Frontend - Teachers List
-<img width="1439" alt="teachers1" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/0eb723b5-96b3-4f00-b95a-73c46ee8c3df">
+<img width="1440" alt="Teachers" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/35b594c1-e4af-44f0-a11b-5d19fab4ef21">
+
+## Create - Teachers Form
+<img width="1436" alt="Create Teacher" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/109860dd-a1ac-47df-92f2-0fadb0a596d6">
+
 
 ## Project Structure
 
 The project is organized into two main parts: the backend and the frontend.
 
-- Backend: Developed using Django REST framework, utilizing a PostgreSQL database for data storage.
-- Frontend: Implemented using ReactJS and Context API to manage state changes.
+- Backend: Developed using Django REST framework with a PostgreSQL database for data storage. The backend includes unit tests for models, serializers, and viewsets.
+- Frontend: Implemented using ReactJS and Redux to manage state changes (State Manager).
 
 ## Setting up PostgreSQL Database
 
