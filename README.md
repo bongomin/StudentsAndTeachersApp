@@ -6,8 +6,41 @@ This web application manages CRUD (Create, Read, Update, Delete) operations for 
 
 The project is organized into two main parts: the backend and the frontend.
 
-- **Backend:** Developed using Django REST framework, utilizing a PostgreSQL database for data storage.
-- **Frontend:** Implemented using ReactJS and Context API to manage state changes.
+- Backend: Developed using Django REST framework, utilizing a PostgreSQL database for data storage.
+- Frontend: Implemented using ReactJS and Context API to manage state changes.
+
+## Setting up PostgreSQL Database
+
+1. **Install PostgreSQL:**
+
+   Follow the [official PostgreSQL installation guide](https://www.postgresql.org/download/) to install PostgreSQL for your operating system.
+
+2. **Create a Database and User:**
+
+   Create a PostgreSQL database and user with appropriate privileges. Replace `<db_name>`, `<db_user>`, and `<db_password>` with your preferred values.
+
+   ```sql
+   CREATE DATABASE <db_name>;
+   CREATE USER <db_user> WITH PASSWORD '<db_password>';
+   GRANT ALL PRIVILEGES ON DATABASE <db_name> TO <db_user>;
+   ```
+
+3. **Configure Django Settings:**
+
+   Update the Django `DATABASES` settings in your Django project's settings file (`settings.py`), replacing `<db_name>`, `<db_user>`, and `<db_password>` with the values you used in step 2.
+
+   ```python
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'USER': '<db_user>',
+           'PASSWORD': '<db_password>',
+           'NAME': '<db_name>',
+           'HOST': 'localhost',
+           'PORT': '', # Add port if needed
+       }
+   }
+   ```
 
 ## Cloning the Project
 
@@ -35,44 +68,43 @@ cd StudentsAndTeachersApp/frontend
 
 ## Running the Application
 
-### Start the Backend Server
+Start the backend server:
 
-1. Navigate to the backend directory:
+### Navigate to the backend directory
 
 ```bash
 cd backend
 ```
 
-2. Install dependencies:
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the Django server:
+### Run the Django server
 
 ```bash
 python manage.py runserver
 ```
 
-### Start the Frontend Server
+Start the frontend server:
 
-1. Navigate to the frontend directory:
+### Navigate to the frontend directory
 
 ```bash
 cd frontend
 ```
 
-2. Install dependencies:
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-3. Run the React app:
+### Run the React app
 
 ```bash
 npm start
 ```
-
-Open your web browser and visit [http://localhost:3000](http://localhost:3000) to use the application.
+```
