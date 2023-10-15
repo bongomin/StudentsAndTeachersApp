@@ -21,9 +21,14 @@ const studentsSlice = createSlice({
         },
         studentToUpdate: (state, { payload }) => {
             state.student = payload;
+        },
+        updatedStudent: (state, { payload }) => {
+            state.students = state.students.map(
+                student => student.id === payload.id ? payload : student
+            )
         }
     }
 });
 
-export const { loadStudents, newStudent, removeStudent, studentToUpdate } = studentsSlice.actions;
+export const { loadStudents, newStudent, removeStudent, studentToUpdate, updatedStudent } = studentsSlice.actions;
 export default studentsSlice; 
