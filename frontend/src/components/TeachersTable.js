@@ -147,10 +147,11 @@ function TeachersTable() {
                             </label>
                             <input
                                 onChange={(e) => setName(e.target.value)}
-                                name='name' value={name} type="text" id="name" className="border p-2" placeholder="Enter name" />
+                                name='name' value={name} type="text" id="name" className="border p-2 mb-2" placeholder="Enter name"
+                            />
                             {
                                 students && (pathname.replace('/', '')) === 'teachers' &&
-                                <div className='p-2 border mb-'>
+                                <div className='p-2 border mb-2'>
                                     <p>Assign Student to Teacher:</p>
                                     <hr className='p-2'></hr>
                                     <ul className='m-2'>
