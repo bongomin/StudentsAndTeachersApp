@@ -4,7 +4,8 @@ import React, {
 import Modal from './Modal';
 import { deleteStudent, editStudent } from '../service/studentService';
 import { useDispatch, useSelector } from 'react-redux';
-import { studentToUpdate } from '../store/studentSlice';
+import { removeStudent, studentToUpdate, updatedStudent } from '../store/studentSlice';
+import { toast } from 'react-toastify';
 
 const initialValues = {
     name: '',
@@ -22,6 +23,7 @@ function Table() {
 
     const handleUpdateClick = (student) => {
         setValues({
+            id: student.id,
             name: student.name,
             surname: student.surname
         })
@@ -47,7 +49,11 @@ function Table() {
 
     const handleDelete = async () => {
         const data = await deleteStudent(currentStudent.id);
-        console.log(data, "confirm deletion")
+        closeModal()
+        if (data.message) {
+            toast.success("Student sucessfully deleted")
+            dispatch(removeStudent(currentStudent))
+        }
     }
 
     const handleChange = (e) => {
@@ -60,7 +66,9 @@ function Table() {
 
     const updateStudentData = async () => {
         const response = await editStudent(values);
-        console.log(response)
+        dispatch(updatedStudent(response))
+        toast.success("Student Updated successfully")
+        closeModal()
     }
 
     return (
@@ -78,7 +86,7 @@ function Table() {
                 {students && students.map((student, index) => (
                     <tbody key={student.id} className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td className="w-4 p-4">{index+1}</td>
+                            <td className="w-4 p-4">{index + 1}</td>
                             <td className="p-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                                 <div className="text-base font-semibold text-gray-900 dark:text-white">
                                     {student.name}
@@ -169,7 +177,7 @@ function Table() {
                                 onClick={updateStudentData}
                                 className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
                             >
-                                Update 
+                                Update
                             </button>
                         </div>
                     </div>
