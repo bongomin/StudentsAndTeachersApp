@@ -17,8 +17,7 @@ This web application manages CRUD (Create, Read, Update, Delete) operations for 
 <img width="1440" alt="students" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b10baed4-332d-4c0b-a413-b3b0b8103b61">
 
 ### Frontend - Teachers List
-<img width="1440" alt="students list" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/d76e4a0e-6d04-4eca-baa6-d3f287ec3bde">
-
+<img width="1439" alt="teachers1" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/0eb723b5-96b3-4f00-b95a-73c46ee8c3df">
 
 ## Project Structure
 
