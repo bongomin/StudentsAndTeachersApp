@@ -31,7 +31,7 @@ This web application manages CRUD (Create, Read, Update, Delete) operations for 
 
 The project is organized into two main parts: the backend and the frontend.
 
-- Backend: Developed using Django REST framework, utilizing a PostgreSQL database for data storage.
+- Backend: Developed using Django REST framework with a PostgreSQL database for data storage. The backend includes unit tests for models, serializers, and viewsets.
 - Frontend: Implemented using ReactJS and Redux to manage state changes (State Manager).
 
 ## Setting up PostgreSQL Database
