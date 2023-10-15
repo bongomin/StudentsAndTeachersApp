@@ -1,5 +1,4 @@
 import React, {
-    useContext,
     useEffect,
     useState
 } from 'react';
@@ -8,16 +7,18 @@ import Modal from './Modal';
 import { validateStudent } from '../utils/helpers';
 import { toast } from 'react-toastify';
 import { addStudent } from '../service/studentService';
-import { StudentContext } from '../context/StudentContext';
+import { addTeachers } from '../service/teacherService';
+import { useDispatch } from 'react-redux';
+import { newTeacher } from '../store/teacherSlice';
+import { newStudent } from '../store/studentSlice';
 
 function TopPanel() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [path, setPath] = useState('');
     const [values, setValues] = useState({});
-    const [studentData, setStudentData] = useState();
-    const [studentList, setStudentList] = useState();
+    const [name, setName] = useState('');
 
-    const { students } = useContext(StudentContext);
+    const dispatch = useDispatch();
 
     const { pathname } = useLocation();
     const openModal = () => {
@@ -26,23 +27,14 @@ function TopPanel() {
 
     const handleChange = (e) => {
         const { value, name } = e.target;
-        setValues({
-            ...values,
-            [name]: value
-        })
+        setValues({ ...values, [name]: value })
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    const closeModal = () => { setIsModalOpen(false); };
 
     useEffect(() => {
         setPath(pathname.replace('/', ''))
     }, [pathname]);
-
-    useEffect(() => {
-        setStudentList([...students, studentData]);
-    }, [studentData])
 
     const createStudent = async () => {
         const error = validateStudent(values);
@@ -50,10 +42,22 @@ function TopPanel() {
         if (error.surname) toast.error("surname is required")
         if (!error.name && !error.surname) {
             const data = await addStudent(values);
-            setStudentData(data);
+            dispatch(newStudent(data));
             toast.success(`${data.name} successfuly added`)
             closeModal()
         }
+    }
+
+    const createTeacher = async (selectedStudents) => {
+        const data = {
+            name,
+            students: selectedStudents
+        }
+
+        const response = await addTeachers(data);
+        closeModal()
+        toast.success(`Teacher ${response.name} created successfuly`)
+        dispatch(newTeacher(response))
     }
 
     return (
@@ -62,7 +66,7 @@ function TopPanel() {
                 <div className="mr-2 font-bold text-xl">{path}</div>
             </div>
             <div className="flex items-center">
-            <button className="flex items-center bg-blue-500 hover:bg-blue-700 text-white p-2 rounded" onClick={openModal}>
+                <button className="flex items-center bg-blue-500 hover:bg-blue-700 text-white p-2 rounded" onClick={openModal}>
                     <div className="mr-2" style={{ cursor: 'pointer' }}>
                         Create {path}
                     </div>
@@ -79,35 +83,37 @@ function TopPanel() {
                 </button>
 
             </div>
-
-            {isModalOpen && path === 'students' && (
-                <StudentContext.Provider value={{ students: studentList }} >
-                    <Modal closeModal={closeModal} onSubmit={createStudent}>
-                        <div className="text-2xl font-semibold mb-4">Create Student</div>
-                        <div className="flex flex-col mb-4">
-                            <label htmlFor="name" className="mb-2">
-                                Name:
-                            </label>
-                            <input onChange={e => handleChange(e)} name='name' type="text" id="name" className="border p-2" placeholder="Enter name" />
-                        </div>
-                        <div className="flex flex-col mb-4">
-                            <label htmlFor="surname" className="mb-2">
-                                Surname:
-                            </label>
-                            <input onChange={e => handleChange(e)} name='surname' type="text" id="surname" className="border p-2" placeholder="Enter surname" />
-                        </div>
-                    </Modal>
-                </StudentContext.Provider>
-
+            {isModalOpen && (path === 'students') && (
+                <Modal closeModal={closeModal}
+                    onSubmit={createStudent}>
+                    <div className="text-2xl font-semibold mb-4">Create Student</div>
+                    <div className="flex flex-col mb-4">
+                        <label htmlFor="name" className="mb-2">
+                            Name:
+                        </label>
+                        <input onChange={e => handleChange(e)} name='name' type="text" id="name" className="border p-2" placeholder="Enter name" />
+                    </div>
+                    <div className="flex flex-col mb-4">
+                        <label htmlFor="surname" className="mb-2">
+                            Surname:
+                        </label>
+                        <input onChange={e => handleChange(e)} name='surname' type="text" id="surname" className="border p-2" placeholder="Enter surname" />
+                    </div>
+                </Modal>
             )}
             {isModalOpen && path === 'teachers' && (
-                <Modal closeModal={closeModal}>
+                <Modal closeModal={closeModal} onCreate={createTeacher}>
                     <div className="text-xl font-semibold mb-4">Create Teacher</div>
                     <div className="flex flex-col mb-4">
                         <label htmlFor="name" className="mb-2">
                             Name:
                         </label>
-                        <input type="text" id="name" className="border p-2" placeholder="Enter name" />
+                        <input
+                            onChange={e => setName(e.target.value)}
+                            type="text"
+                            id="name"
+                            className="border p-2"
+                            placeholder="Enter name" />
                     </div>
                 </Modal>
             )}
