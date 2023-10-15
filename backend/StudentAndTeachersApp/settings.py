@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# environment variables
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = True if os.getenv('DEBUG') == 'True' else False
+DB_USER = os.getenv('DB_USER')
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+
+
+print('tettststs=>>',SECRET_KEY)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0j*3a&#b)-6%i$h9f1w@0j!&@chir(08akn_yupn0-4!*nl80q'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,9 +98,9 @@ WSGI_APPLICATION = 'StudentAndTeachersApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'daniel',
-        'PASSWORD': 'qwerty',
-        'NAME': 'studentsandteachersdb',
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'NAME': DB_NAME,
         'HOST': 'localhost',
     }
 }
