@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TeachersTable() {
+function TeachersTable(teachers) {
     const sampleData = [
         {
             id: 1,
