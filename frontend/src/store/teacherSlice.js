@@ -22,9 +22,14 @@ const teachersSlice = createSlice({
         },
         teacherToUpdate: (state, {payload}) => {
             state.teacher = payload;
+        },
+        updatedTeacher: (state, { payload }) => {
+            state.teachers = state.teachers.map(
+                teacher => teacher.id === payload.id ? payload : teacher
+            )
         }
     }
 });
 
-export const { loadTeachers, newTeacher, removeTeacher, teacherToUpdate } = teachersSlice.actions;
+export const { loadTeachers, newTeacher, removeTeacher, teacherToUpdate, updatedTeacher } = teachersSlice.actions;
 export default teachersSlice; 
