@@ -29,7 +29,7 @@ export const deleteStudent = async (id) => {
 
 export const editStudent = async (body) => {
     try {
-        const response = await AxiosInstance.update(`${baseURL}students/${body.id}, body`);
+        const response = await AxiosInstance.put(`${baseURL}students/${body.id}, body`);
         return response.data
     } catch (error) {
         console.log(error)
