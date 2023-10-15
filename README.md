@@ -2,6 +2,24 @@
 
 This web application manages CRUD (Create, Read, Update, Delete) operations for students and teachers. It also demonstrates a many-to-many relationship where students are associated with teachers.
 
+## Screenshots
+
+### API Insomnia | Postman Test
+
+<img width="1440" alt="insonmia api test" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/a8c2314b-d511-4b08-a785-96ab4d8e2b04">
+<img width="1440" alt="students list" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/53dcdfbe-ff66-4847-8656-e00792e12f08">
+<img width="1438" alt="teachersList" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/2528758d-7e34-4991-8639-80bde284b9a5">
+
+### Application Home Page
+<img width="1440" alt="home page" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b1e02dd8-c970-4845-807e-881c56fa01fc">
+
+### Frontend - Students List
+<img width="1440" alt="students" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/b10baed4-332d-4c0b-a413-b3b0b8103b61">
+
+### Frontend - Teachers List
+<img width="1440" alt="students list" src="https://github.com/bongomin/StudentsAndTeachersApp/assets/39218838/d76e4a0e-6d04-4eca-baa6-d3f287ec3bde">
+
+
 ## Project Structure
 
 The project is organized into two main parts: the backend and the frontend.
