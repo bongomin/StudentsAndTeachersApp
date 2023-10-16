@@ -12,15 +12,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
 # environment variables
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = True if os.getenv('DEBUG') == 'True' else False
+DEBUG = os.getenv('DEBUG')
 DB_USER = os.getenv('DB_USER')
 DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
+HOST = os.getenv('HOST')
+PORT = os.getenv('PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,7 +38,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -91,13 +94,16 @@ WSGI_APPLICATION = 'StudentAndTeachersApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASE_URL=os.getenv('DATABASE_URL')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
         'NAME': DB_NAME,
-        'HOST': 'localhost',
+        'HOST': HOST,
+        'PORT': PORT
     }
 }
 
